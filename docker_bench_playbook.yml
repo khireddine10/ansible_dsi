@@ -6,10 +6,8 @@
     # Tâche d'installation des dépendances
     - name: Install dependencies
       apt:
-        name: "{{ item }}"
+        name: git
         state: present
-      with_items:
-        - git
 
     # Tâche de clonage du dépôt Docker Bench
     - name: Clone Docker Bench repository
