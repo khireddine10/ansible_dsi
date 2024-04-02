@@ -1,0 +1,25 @@
+---
+- name: Run Docker Bench
+  hosts: all
+  become: yes
+  tasks:
+    # Tâche d'installation des dépendances
+    - name: Install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+
+    # Tâche de clonage du dépôt Docker Bench
+    - name: Clone Docker Bench repository
+      git:
+        repo: https://github.com/docker/docker-bench-security.git
+        dest: /opt/docker-bench
+      
+    - name: Change directory to Docker Bench
+      shell: cd /opt/docker-bench
+
+    # Tâche d'exécution du script Docker Bench
+    - name: Run Docker Bench script
+      shell: ./docker-bench-security.sh
